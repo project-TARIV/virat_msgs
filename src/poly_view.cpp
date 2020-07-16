@@ -55,6 +55,10 @@ void callback(const virat_msgs::PolynomialConstPtr &msg, ros::Publisher &pub, vi
     m.pose.orientation.w = trans.rotation.w;
 
     m.points.clear();
+    if (msg->coeffs.empty()) {
+        pub.publish(m);
+        return;
+    }
     double x = -range;
     while (x <= range) {
         m.points.emplace_back();
